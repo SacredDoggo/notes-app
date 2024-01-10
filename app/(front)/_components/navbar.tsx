@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useScrollTop } from "@/hooks/use-scrolled-top";
 import { cn } from "@/lib/utils";
 import { Spinner } from "@/components/spinner";
+import Link from "next/link";
 
 export const Navbar = () => {
   const scrolled = useScrollTop();
@@ -25,12 +26,12 @@ export const Navbar = () => {
         )}
         {!isAuthenticated && !isLoading && (
           <>
-            <SignInButton mode="modal">
+            <SignInButton mode="modal" afterSignInUrl="/documents">
               <Button variant="ghost" size="sm">
                 Login
               </Button>
             </SignInButton>
-            <SignUpButton mode="modal">
+            <SignUpButton mode="modal" afterSignUpUrl="/documents">
               <Button size="sm">
                 Sign up
               </Button>
@@ -39,8 +40,10 @@ export const Navbar = () => {
         )}
         {isAuthenticated && !isLoading && (
           <>
-            <Button variant="ghost">
-              Enter Fable
+            <Button variant="ghost" asChild>
+              <Link href="/documents">
+                Enter Fable
+              </Link>
             </Button>
             <UserButton afterSignOutUrl="/" />
           </>
