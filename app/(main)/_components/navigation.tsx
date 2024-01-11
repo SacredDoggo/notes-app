@@ -53,6 +53,7 @@ export const Navigation = () => {
     }
   };
 
+  // Sidebar resize code-------------------------------------------------------------------------------------
   const handleManualResize = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.preventDefault();
     event.stopPropagation();
@@ -78,7 +79,7 @@ export const Navigation = () => {
     removeEventListener("mousemove", handleMouseMove);
     removeEventListener("mouseup", handleMouseUp);
   }
-
+  // --------------------------------------------------------------------------------------------------------
 
   return (
     <>
