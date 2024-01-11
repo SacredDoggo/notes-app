@@ -3,6 +3,8 @@ import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { ChevronsLeft, MenuIcon } from "lucide-react";
+import { UserProfileItem } from "./user-profile-item";
+import { MenuItems } from "./menu-items";
 
 export const Navigation = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -101,11 +103,15 @@ export const Navigation = () => {
         >
           <ChevronsLeft className="h-6 w-6" />
         </div>
-        <div 
-          onClick={resetSidebar}
-          onMouseDown={handleManualResize}
-          className="opacity-0 group-hover/sidebar:opacity-100 transition absolute top-0 right-0 h-full w-1 bg-primary/10 hover:cursor-ew-resize"
-        />
+        <UserProfileItem />
+        <MenuItems />
+        {!isMobile && (
+          <div
+            onClick={resetSidebar}
+            onMouseDown={handleManualResize}
+            className="opacity-0 group-hover/sidebar:opacity-100 transition absolute top-0 right-0 h-full w-1 bg-primary/10 hover:cursor-ew-resize"
+          />
+        )}
       </aside>
       <div
         ref={navbarRef}
