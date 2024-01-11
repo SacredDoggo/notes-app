@@ -1,10 +1,12 @@
+import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 
 import { cn } from "@/lib/utils";
-import { ElementRef, useEffect, useRef, useState } from "react";
 import { ChevronsLeft, MenuIcon } from "lucide-react";
+
 import { UserProfileItem } from "./user-profile-item";
 import { MenuItems } from "./menu-items";
+import { DocumentList } from "./document-list";
 
 export const Navigation = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -105,6 +107,7 @@ export const Navigation = () => {
         </div>
         <UserProfileItem />
         <MenuItems />
+        <DocumentList />
         {!isMobile && (
           <div
             onClick={resetSidebar}
