@@ -8,7 +8,7 @@ interface ItemProps {
   title: string;
   document?: boolean;
   documentId?: Id<"documents">;
-  onClick: () => void;
+  onClick?: () => void;
   onArchive?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   isSearch?: boolean;
 }

@@ -28,14 +28,14 @@ export const DocumentList = () => {
     const promise = archive({ id: id });
 
     toast.promise(promise, {
-      loading: "Deleting note...",
-      success: "Note deleted!",
-      error: "Failed to delete note."
+      loading: "Moving note to trash...",
+      success: "Note removed!",
+      error: "Failed to remove note."
     });
   };
 
   return (
-    <div className="flex flex-col mt-4">
+    <div className="flex flex-col my-2">
       {documents?.map((document) => (
         <Item
           key={document._id}

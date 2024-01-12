@@ -7,6 +7,7 @@ import { ChevronsLeft, MenuIcon } from "lucide-react";
 import { UserProfileItem } from "./user-profile-item";
 import { MenuItems } from "./menu-items";
 import { DocumentList } from "./document-list";
+import { RecycleBin } from "./recycle-bin";
 
 export const Navigation = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -90,7 +91,7 @@ export const Navigation = () => {
       <aside
         ref={sidebarRef}
         className={cn(
-          "group/sidebar h-full overflow-y-auto left w-60 bg-secondary relative flex flex-col z-50",
+          "group/sidebar h-full overflow-y-auto left w-60 bg-secondary relative flex flex-col z-40",
           isResizing && "transition-all ease-in-out duration-300",
           isMobile && "w-0"
         )}
@@ -107,6 +108,7 @@ export const Navigation = () => {
         </div>
         <UserProfileItem />
         <MenuItems />
+        <RecycleBin />
         <DocumentList />
         {!isMobile && (
           <div

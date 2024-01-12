@@ -4,6 +4,7 @@ import { Spinner } from "@/components/spinner";
 import { useConvexAuth } from "convex/react";
 import { Navigation } from "./_components/navigation";
 import { redirect } from "next/navigation";
+import { SettingsModal } from "@/components/modals/settings-modal";
 
 const MainPageLayout = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -26,6 +27,7 @@ const MainPageLayout = ({ children }: { children: React.ReactNode }) => {
       <main className="flex-1 h-full overflow-y-auto">
         {children}
       </main>
+      <SettingsModal />
     </div>
   );
 }

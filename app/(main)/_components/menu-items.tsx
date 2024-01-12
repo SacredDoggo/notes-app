@@ -3,12 +3,17 @@ import { Item } from "./item";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useSettings } from "@/hooks/use-settings";
 
 export const MenuItems = () => {
+  const router = useRouter();
   const create = useMutation(api.documents.create);
 
+  const settings = useSettings();
+
   const handleCreate = () => {
-    const promise = create({ title: "Untitled" });
+    const promise = create({ title: "Untitled" }).then((doc) => (router.push(`/documents/${doc}`)));
 
     toast.promise(promise, {
       loading: "Creating new note...",
@@ -27,7 +32,7 @@ export const MenuItems = () => {
       <Item 
         icon={Settings}
         title="Settings"
-        onClick={() => {}}
+        onClick={settings.onOpen}
       />
       <Item 
         icon={PlusCircle}
