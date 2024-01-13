@@ -1,6 +1,7 @@
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
 import { LucideIcon, Trash } from "lucide-react";
+import { useMediaQuery } from "usehooks-ts";
 
 interface ItemProps {
   active?: boolean;
@@ -23,6 +24,8 @@ export const Item = ({
   onArchive,
   isSearch
 }: ItemProps) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  
   return (
     <div
       role="button"
@@ -51,7 +54,10 @@ export const Item = ({
           <div
             role="button"
             onClick={onArchive}
-            className="opacity-0 group-hover/docs:opacity-100 hover:bg-neutral-300 dark:hover:bg-neutral-600 p-1 rounded-sm"
+            className={cn(
+              "opacity-0 group-hover/docs:opacity-100 hover:bg-neutral-300 dark:hover:bg-neutral-600 p-1 rounded-sm",
+              isMobile && "opacity-100"
+            )}
           >
             <Trash className="h-4 w-4 text-muted-foreground" />
           </div>
