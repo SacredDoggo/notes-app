@@ -5,6 +5,7 @@ import { useConvexAuth } from "convex/react";
 import { Navigation } from "./_components/navigation";
 import { redirect } from "next/navigation";
 import { SettingsModal } from "@/components/modals/settings-modal";
+import { SearchModal } from "@/components/modals/search-modal";
 
 const MainPageLayout = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -28,6 +29,7 @@ const MainPageLayout = ({ children }: { children: React.ReactNode }) => {
         {children}
       </main>
       <SettingsModal />
+      <SearchModal />
     </div>
   );
 }

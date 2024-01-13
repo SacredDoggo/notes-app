@@ -9,7 +9,7 @@ export const create = mutation({
 		const identity = await ctx.auth.getUserIdentity();
 
 		if (!identity) {
-			throw new Error("Not Authenticated");
+			throw new Error("Not authenticated");
 		}
 
 		const userId = identity.subject;
@@ -30,7 +30,7 @@ export const getUserDocuments = query({
 		const identity = await ctx.auth.getUserIdentity();
 
 		if (!identity) {
-			throw new Error("Not Authenticated");
+			throw new Error("Not authenticated");
 		}
 
 		const userId = identity.subject;
@@ -55,7 +55,7 @@ export const getUserDeletedDocuments = query({
 		const identity = await ctx.auth.getUserIdentity();
 
 		if (!identity) {
-			throw new Error("Not Authenticated");
+			throw new Error("Not authenticated");
 		}
 
 		const userId = identity.subject;
@@ -81,7 +81,7 @@ export const archive = mutation({
 		const identity = await ctx.auth.getUserIdentity();
 
 		if (!identity) {
-			throw new Error("Not Authenticated");
+			throw new Error("Not authenticated");
 		}
 
 		const userId = identity.subject;
@@ -106,7 +106,7 @@ export const remove = mutation({
 		const identity = await ctx.auth.getUserIdentity();
 
 		if (!identity) {
-			throw new Error("Not Authenticated");
+			throw new Error("Not authenticated");
 		}
 
 		const userId = identity.subject;
@@ -129,7 +129,7 @@ export const restore = mutation({
 		const identity = await ctx.auth.getUserIdentity();
 
 		if (!identity) {
-			throw new Error("Not Authenticated");
+			throw new Error("Not authenticated");
 		}
 
 		const userId = identity.subject;
@@ -145,5 +145,27 @@ export const restore = mutation({
 		});
 
 		return document;
+	}
+});
+
+export const getSearchDocuments = query({
+	handler: async (ctx) => {
+		const identity = await ctx.auth.getUserIdentity();
+
+		if (!identity) {
+			throw new Error("Not authenticated")
+		}
+
+		const userId =  identity.subject;
+
+		const documents = ctx.db
+			.query("documents")
+			.withIndex("by_user", (q) => (
+				q.eq("userId", userId)
+			))
+			.order("desc")
+			.collect();
+
+		return documents;
 	}
 });

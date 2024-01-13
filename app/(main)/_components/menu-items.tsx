@@ -5,12 +5,14 @@ import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useSettings } from "@/hooks/use-settings";
+import { useSearch } from "@/hooks/use-search";
 
 export const MenuItems = () => {
   const router = useRouter();
   const create = useMutation(api.documents.create);
 
   const settings = useSettings();
+  const search = useSearch();
 
   const handleCreate = () => {
     const promise = create({ title: "Untitled" }).then((doc) => (router.push(`/documents/${doc}`)));
@@ -27,7 +29,7 @@ export const MenuItems = () => {
       <Item 
         icon={Search}
         title="Search"
-        onClick={() => {}}
+        onClick={search.onOpen}
       />
       <Item 
         icon={Settings}
