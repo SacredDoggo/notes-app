@@ -31,26 +31,20 @@ export const Item = ({
       role="button"
       onClick={onClick}
       className={cn(
-        "group/docs flex pl-3 hover:bg-primary/5 min-h-7 items-center w-full",
-        active && "bg-primary/5"
+        "group/docs flex pl-3 hover:bg-primary/5 min-h-7 justify-between items-center w-full text-muted-foreground",
+        active && "bg-primary/5 text-primary"
       )}
-
     >
       <div
-        className="flex"
+        className="flex text-sm font font-medium max-w-[75%]"
       >
-        <Icon className="h-[18px] text-muted-foreground" />
-        <span
-          className={cn(
-            "text-sm pl-2 font-medium",
-            !active && "text-muted-foreground"
-          )}
-        >
+        <Icon className="shrink-0 h-[18px] pr-2 text-muted-foreground" />
+        <span className="truncate">
           {title}
         </span>
       </div>
       {document && (
-        <div className="flex w-full justify-end pr-2">
+        <div className="flex pr-2">
           <div
             role="button"
             onClick={onArchive}

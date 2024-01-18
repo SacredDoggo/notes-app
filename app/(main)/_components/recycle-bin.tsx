@@ -97,18 +97,19 @@ export const RecycleBin = () => {
               <span className="hidden last:block text-xs text-center text-muted-foreground">No notes found.</span>
               {filteredSearchDocuments?.map((document) => (
                 <div
+                key={document._id}
                   className="flex items-center hover:bg-primary/5 rounded-sm h-7 pl-2"
                   role="button"
                   onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => handleClick(event, document._id as string)}
                 >
-                  <File className="h-4 w-4 text-muted-foreground mr-2" />
+                  <File className="h-[18px] text-muted-foreground mr-2 shrink-0" />
                   <span className={cn(
-                    "text-sm",
+                    "text-sm w-full truncate",
                     params.documentId !== document._id && "text-muted-foreground"
                   )}>
                     {document.title}
                   </span>
-                  <div className="flex w-full justify-end">
+                  <div className="flex  justify-end">
                     <div
                       className="hover:bg-neutral-300 dark:hover:bg-neutral-600 p-1 m-1 rounded-sm"
                       role="button"
@@ -120,6 +121,7 @@ export const RecycleBin = () => {
                       <div
                         className="hover:bg-neutral-300 dark:hover:bg-neutral-600 p-1 m-1 rounded-sm"
                         role="button"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <FileX className="h-4 w-4 text-muted-foreground" />
                       </div>
