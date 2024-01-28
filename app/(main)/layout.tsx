@@ -28,7 +28,6 @@ const MainPageLayout = ({ children }: { children: React.ReactNode }) => {
       <main className="flex-1 h-full overflow-y-auto">
         {children}
       </main>
-      <SettingsModal />
       <SearchModal />
     </div>
   );
