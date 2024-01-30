@@ -8,8 +8,13 @@ import { UserProfileItem } from "./user-profile-item";
 import { MenuItems } from "./menu-items";
 import { DocumentList } from "./document-list";
 import { RecycleBin } from "./recycle-bin";
+import { Navbar } from "./navbar";
+import { useParams } from "next/navigation";
+import { Id } from "@/convex/_generated/dataModel";
 
 export const Navigation = () => {
+  const params = useParams();
+
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -72,7 +77,7 @@ export const Navigation = () => {
 
     if (newWidth < 240) newWidth = 240;
     if (newWidth > 480) newWidth = 480;
-    
+
     if (navbarRef.current && sidebarRef.current) {
       sidebarRef.current.style.width = `${newWidth}px`;
       navbarRef.current.style.setProperty("left", `${newWidth}px`);
@@ -122,18 +127,27 @@ export const Navigation = () => {
         ref={navbarRef}
         className={cn(
           "absolute z-50 top-0 left-60 w-[calc(100%-240px)]",
-          isResizing && "transition-all duration-300 ease-in-out"
+          isResizing && "transition-all duration-300 ease-in-out",
+          isMobile && "left-0 w-full" 
         )}
       >
-        <nav className="bg-transparent px-3 py-2 w-full">
-          {isCollapsed &&
-            <MenuIcon
-              role="button"
-              onClick={resetSidebar}
-              className="h-6 w-6 hover:cursor-pointer rounded-sm text-muted-foreground"
-            />
-          }
-        </nav>
+        {!!params.documentId ? (
+          <Navbar 
+            id={params.documentId as Id<"documents">} 
+            isCollapsed={isCollapsed} 
+            onResetSidebar={resetSidebar}
+          />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed &&
+              <MenuIcon
+                role="button"
+                onClick={resetSidebar}
+                className="h-6 w-6 hover:cursor-pointer rounded-sm text-muted-foreground"
+              />
+            }
+          </nav>
+        )}
       </div>
     </>
   );

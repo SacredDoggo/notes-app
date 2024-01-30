@@ -37,11 +37,7 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
     }
 
     return (
-      <div className="flex flex-col">
-        <div>
-          <Navbar id={document._id} ogTitle={document.title} />
-          <Banner id={document._id} isArchived={document.isArchived} />
-        </div>
+      <div className="relative pb-40">
         <div className="w-full md:max-w-3xl lg:max-w-4xl mx-auto">
           TODO: Editor
         </div>

@@ -9,12 +9,9 @@ import { Button } from "@/components/ui/button";
 
 interface BannerProps {
   id: Id<"documents">;
-  isArchived: boolean;
 }
 
-export const Banner = ({ id, isArchived }: BannerProps) => {
-  if (!isArchived) return;
-
+export const Banner = ({ id }: BannerProps) => {
   const restore = useMutation(api.documents.restore);
   const remove = useMutation(api.documents.remove);
 
@@ -39,21 +36,21 @@ export const Banner = ({ id, isArchived }: BannerProps) => {
   }
 
   return (
-    <div className="h-[50px] w-full flex items-center justify-center gap-x-2 bg-rose-500">
+    <div className="h-[50px] w-full flex items-center text-white justify-center gap-x-2 bg-rose-500">
       <span className="text-sm font-medium">This note has been removed.</span>
       <Button
         onClick={handleRestore}
         variant="outline"
-        className="bg-rose-500 opacity-85 hover:opacity-100 hover:bg-rose-500 border-white"
+        className="border-white bg-transparent hover:bg-primary/5 text-white hover:text-white p-1 px-2 h-auto font-normal"
       >
         Restore Page
       </Button>
       <ConfirmModal onConfirm={handleRemove}>
         <Button
           variant="outline"
-          className="bg-rose-500 opacity-85 hover:opacity-100 hover:bg-rose-500 border-white"
+          className="border-white bg-transparent hover:bg-primary/5 text-white hover:text-white p-1 px-2 h-auto font-normal"
         >
-          Delete Page
+          Delete forever
         </Button>
       </ConfirmModal>
     </div>
