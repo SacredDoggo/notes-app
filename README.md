@@ -1,5 +1,6 @@
 TODO:
 -Make Artwork for site
+-Add Skeletons to components
 
 Warning: 
 This is a personal project and does not gurantee retention of your data over long period of time as It has limited resources, use it while being aware of that,
