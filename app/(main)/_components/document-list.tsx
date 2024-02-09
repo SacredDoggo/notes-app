@@ -43,6 +43,7 @@ export const DocumentList = () => {
           document={true}
           icon={File}
           title={document.title}
+          documentIcon={document.icon}
           onClick={() => handleClick(document._id as string)}
           onArchive={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => handleArchive(event, document._id)}
         />

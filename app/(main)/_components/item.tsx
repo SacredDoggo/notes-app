@@ -8,6 +8,7 @@ interface ItemProps {
   icon: LucideIcon;
   title: string;
   document?: boolean;
+  documentIcon?: string;
   documentId?: Id<"documents">;
   onClick?: () => void;
   onArchive?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -19,6 +20,7 @@ export const Item = ({
   icon: Icon,
   title,
   document,
+  documentIcon,
   documentId,
   onClick,
   onArchive,
@@ -38,7 +40,11 @@ export const Item = ({
       <div
         className="flex text-sm font font-medium max-w-[75%]"
       >
-        <Icon className="shrink-0 h-[18px] pr-2 text-muted-foreground" />
+        {documentIcon ? (
+          <span className="shrink-0 text-[18px] mr-2">{documentIcon}</span>
+        ) : (
+          <Icon className="shrink-0 h-[18px] mr-2 text-muted-foreground" />
+        )}
         <span className="truncate">
           {title}
         </span>

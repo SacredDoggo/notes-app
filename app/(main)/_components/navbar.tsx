@@ -53,11 +53,11 @@ export const Navbar = ({ id, isCollapsed, onResetSidebar }: NavbarProps) => {
   return (
     <>
       <nav className="px-3 py-2 w-full flex items-center gap-x-4 bg-background dark:bg-[#1F1F1F]">
-        <div className="font-medium w-full p-2 flex items-center">
+        <div className="font-medium p-2 flex items-center gap-x-2">
           {isCollapsed && (
             <MenuIcon
               onClick={onResetSidebar}
-              className="h-6 w-6 text-muted-foreground"
+              className="h-6 w-6 text-muted-foreground shrink-0"
             />
           )}
           {!isEditing ?

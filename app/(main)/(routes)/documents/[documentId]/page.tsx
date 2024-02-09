@@ -1,15 +1,16 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useMemo } from "react";
+import dynamic from "next/dynamic";
+import { useMutation, useQuery } from "convex/react";
 import { ConvexError } from "convex/values";
 
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
-import { Navbar } from "@/app/(main)/_components/navbar";
-
 import { Spinner } from "@/components/spinner";
-import { Banner } from "@/app/(main)/_components/banner";
+import { Toolbar } from "@/app/(main)/_components/toolbar";
+import { CoverImage } from "@/components/cover-image";
 
 interface DocumentIdPageProps {
   params: {
@@ -18,6 +19,20 @@ interface DocumentIdPageProps {
 }
 
 const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
+  const Editor = useMemo(() => dynamic(() => import("@/components/editor"), { ssr: false }), []);
+
+  const update = useMutation(api.documents.update);
+  const document = useQuery(api.documents.getById, {
+    documentId: params.documentId
+  });
+
+  const onChange = (content: string) => {
+    update({
+      id: params.documentId,
+      content
+    })
+  }
+
   try {
     const document = useQuery(api.documents.getById, {
       documentId: params.documentId
@@ -37,9 +52,19 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
     }
 
     return (
-      <div className="relative pb-40">
+      <div className="pb-40 pt-[10vh]">
+        <CoverImage url={document.coverImage} />
         <div className="w-full md:max-w-3xl lg:max-w-4xl mx-auto">
-          TODO: Editor
+          <Toolbar 
+            id={params.documentId} 
+            icon={document.icon} 
+            initialTitle={document.title} 
+            coverImageUrl={document.coverImage} 
+          />
+          <Editor
+            onChange={onChange}
+            initialContent={document.content}
+          />
         </div>
       </div>
     );
