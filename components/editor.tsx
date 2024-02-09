@@ -40,7 +40,7 @@ const Editor = ({ onChange, initialContent, editable }: EditorProps) => {
     onEditorContentChange: (editor) => {
       onChange(JSON.stringify(editor.topLevelBlocks, null, 2));
     },
-    uploadFile: uploadToTmpFilesDotOrg_DEV_ONLY
+    uploadFile: handleUpload
   });
 
   return (
