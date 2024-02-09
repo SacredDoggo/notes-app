@@ -60,11 +60,14 @@ export const Navbar = ({ id, isCollapsed, onResetSidebar }: NavbarProps) => {
               className="h-6 w-6 text-muted-foreground shrink-0"
             />
           )}
+          {!!document?.icon && <p>{document.icon}</p>}
           {!isEditing ?
             (
               <Button
                 variant="ghost"
                 onClick={enableInput}
+                size="sm"
+                className="font-normal h-auto p-1"
               >
                 {document?.title}
               </Button>
@@ -76,7 +79,7 @@ export const Navbar = ({ id, isCollapsed, onResetSidebar }: NavbarProps) => {
                 onKeyDown={onKeyDown}
                 onBlur={disableInput}
                 onChange={handleChange}
-                className="focus-visible:ring-transparent bg-secondary"
+                className="focus-visible:ring-transparent h-7 px-2 bg-secondary"
               />
             )
           }
