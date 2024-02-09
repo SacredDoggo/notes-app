@@ -58,12 +58,13 @@ export const RecycleBin = () => {
   };
 
   const handleRemove = (id: Id<"documents">, coverImageUrl?: string) => {
-
-    const promise = remove({ id: id });
+    if (params.documentId === id) router.push("/documents/");
 
     if (coverImageUrl) edgestore.publicFiles.delete({
       url: coverImageUrl,
     });
+
+    const promise = remove({ id: id });
 
     toast.promise(promise, {
       loading: "Deleting note...",
@@ -72,7 +73,7 @@ export const RecycleBin = () => {
     });
   };
 
-  if(deletedDocuments === undefined) {
+  if (deletedDocuments === undefined) {
     return (
       <div className="flex items-center justify-center w-full">
         <Spinner />
@@ -104,7 +105,7 @@ export const RecycleBin = () => {
               <span className="hidden last:block text-xs text-center text-muted-foreground">No notes found.</span>
               {filteredSearchDocuments?.map((document) => (
                 <div
-                key={document._id}
+                  key={document._id}
                   className="flex items-center hover:bg-primary/5 rounded-sm h-7 pl-2"
                   role="button"
                   onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => handleClick(event, document._id as string)}
