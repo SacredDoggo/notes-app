@@ -86,7 +86,7 @@ export const Navbar = ({ id, isCollapsed, onResetSidebar }: NavbarProps) => {
         </div>
       </nav>
       {!!document?.isArchived && (
-        <Banner id={document._id} />
+        <Banner id={document._id} coverImageUrl={document.coverImage} />
       )}
     </>
   );

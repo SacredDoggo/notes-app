@@ -6,14 +6,18 @@ import { Id } from "@/convex/_generated/dataModel";
 
 import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { Button } from "@/components/ui/button";
+import { useEdgeStore } from "@/lib/edgestore";
 
 interface BannerProps {
   id: Id<"documents">;
+  coverImageUrl?: string;
 }
 
-export const Banner = ({ id }: BannerProps) => {
+export const Banner = ({ id, coverImageUrl }: BannerProps) => {
   const restore = useMutation(api.documents.restore);
   const remove = useMutation(api.documents.remove);
+
+  const { edgestore } = useEdgeStore();
 
   const handleRestore = () => {
     const promise = restore({ id: id });
@@ -28,10 +32,14 @@ export const Banner = ({ id }: BannerProps) => {
   const handleRemove = () => {
     const promise = remove({ id: id });
 
+    if (coverImageUrl) edgestore.publicFiles.delete({
+      url: coverImageUrl,
+    });
+
     toast.promise(promise, {
-      loading: "Restoring note...",
-      success: "Note restored!",
-      error: "Failed to restore note."
+      loading: "Deleting note...",
+      success: "Note deleted!",
+      error: "Failed to delete note."
     });
   }
 

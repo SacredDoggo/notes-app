@@ -22,6 +22,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { Spinner } from "@/components/spinner";
+import { CoverImage } from "@/components/cover-image";
+import { useEdgeStore } from "@/lib/edgestore";
 
 export const RecycleBin = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -30,6 +32,7 @@ export const RecycleBin = () => {
   const deletedDocuments = useQuery(api.documents.getUserDeletedDocuments);
   const remove = useMutation(api.documents.remove);
   const restore = useMutation(api.documents.restore);
+  const { edgestore } = useEdgeStore();
 
   const [searchVal, setSearchVal] = useState<string>("");
 
@@ -54,9 +57,13 @@ export const RecycleBin = () => {
     });
   };
 
-  const handleRemove = (id: Id<"documents">) => {
+  const handleRemove = (id: Id<"documents">, coverImageUrl?: string) => {
 
     const promise = remove({ id: id });
+
+    if (coverImageUrl) edgestore.publicFiles.delete({
+      url: coverImageUrl,
+    });
 
     toast.promise(promise, {
       loading: "Deleting note...",
@@ -117,7 +124,7 @@ export const RecycleBin = () => {
                     >
                       <Undo className="h-4 w-4 text-muted-foreground" />
                     </div>
-                    <ConfirmModal onConfirm={() => handleRemove(document._id)}>
+                    <ConfirmModal onConfirm={() => handleRemove(document._id, document.coverImage)}>
                       <div
                         className="hover:bg-neutral-300 dark:hover:bg-neutral-600 p-1 m-1 rounded-sm"
                         role="button"
