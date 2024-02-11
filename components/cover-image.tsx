@@ -1,16 +1,21 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { Button } from "./ui/button";
-import { ImageIcon, X } from "lucide-react";
-import { useImageDropzone } from "@/hooks/use-image-dropzone";
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { useParams } from "next/navigation";
-import { Id } from "@/convex/_generated/dataModel";
 import { useState } from "react";
+import Image from "next/image";
+import { ImageIcon, X } from "lucide-react";
+import { useMutation } from "convex/react";
+import { useMediaQuery } from "usehooks-ts";
+import { useParams } from "next/navigation";
+
+import { cn } from "@/lib/utils";
 import { useEdgeStore } from "@/lib/edgestore";
+
+import { Button } from "./ui/button";
+
+import { useImageDropzone } from "@/hooks/use-image-dropzone";
+
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 
 interface CoverImageProps {
   url?: string;
@@ -20,16 +25,19 @@ export const CoverImage = ({ url }: CoverImageProps) => {
   const removeCoverImage = useMutation(api.documents.removeCoverImage);
   const params = useParams();
   const imageDropzone = useImageDropzone();
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const { edgestore } = useEdgeStore();
 
   const [alterating, setAlterating] = useState(false);
 
   const handleReplaceCover = () => {
+    if (isMobile) return;
     imageDropzone.onReplace(url);
   }
 
   const handleRemoveCoverImage = async () => {
+    if (isMobile) return;
     if (!url) return;
     setAlterating(true);
     await edgestore.publicFiles.delete({

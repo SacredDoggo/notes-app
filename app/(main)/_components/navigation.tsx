@@ -1,15 +1,16 @@
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import { useParams } from "next/navigation";
+import { ChevronsLeft, MenuIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
 
 import { UserProfileItem } from "./user-profile-item";
 import { MenuItems } from "./menu-items";
 import { DocumentList } from "./document-list";
 import { RecycleBin } from "./recycle-bin";
 import { Navbar } from "./navbar";
-import { useParams } from "next/navigation";
+
 import { Id } from "@/convex/_generated/dataModel";
 
 export const Navigation = () => {
@@ -114,7 +115,7 @@ export const Navigation = () => {
         <UserProfileItem />
         <MenuItems />
         <RecycleBin />
-        <DocumentList />
+        <DocumentList isMobile={isMobile} handleDocSelectNavbarCollapse={collapseSidebar} />
         {!isMobile && (
           <div
             onClick={resetSidebar}

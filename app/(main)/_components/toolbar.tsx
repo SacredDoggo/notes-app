@@ -1,16 +1,18 @@
 "use client";
 
-import { IconPicker } from "@/components/icon-picker";
-import { Button } from "@/components/ui/button";
+import { ElementRef, useRef, useState } from "react";
+import { useMutation } from "convex/react";
+import TextareaAutosize from "react-textarea-autosize";
+import { ImageIcon, SmileIcon, X } from "lucide-react";
+import { useMediaQuery } from "usehooks-ts";
+
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel"
-import { useImageDropzone } from "@/hooks/use-image-dropzone";
-import { useMutation, useQuery } from "convex/react";
-import { ImageIcon, SmileIcon, X } from "lucide-react";
-import Image from "next/image";
-import { ElementRef, useRef, useState } from "react";
 
-import TextareaAutosize from "react-textarea-autosize";
+import { IconPicker } from "@/components/icon-picker";
+import { Button } from "@/components/ui/button";
+
+import { useImageDropzone } from "@/hooks/use-image-dropzone";
 
 
 interface ToolbarProps {
@@ -23,6 +25,8 @@ interface ToolbarProps {
 export const Toolbar = ({ id, icon, initialTitle, coverImageUrl }: ToolbarProps) => {
   const update = useMutation(api.documents.update);
   const removeIcon = useMutation(api.documents.removeIcon);
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(initialTitle);
@@ -63,12 +67,14 @@ export const Toolbar = ({ id, icon, initialTitle, coverImageUrl }: ToolbarProps)
   };
 
   const handleRemoveIcon = () => {
+    if (isMobile) return;
     removeIcon({
       id: id,
     });
   };
 
   const handleCoverImageUpload = () => {
+    if (isMobile) return;
     imageDropzone.onOpen();
   };
 

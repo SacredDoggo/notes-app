@@ -11,7 +11,12 @@ import { File } from "lucide-react";
 
 import { Item } from "./item";
 
-export const DocumentList = () => {
+interface DocumentListProps {
+  isMobile: boolean;
+  handleDocSelectNavbarCollapse: () => void;
+}
+
+export const DocumentList = ({ isMobile, handleDocSelectNavbarCollapse }: DocumentListProps) => {
   const params = useParams();
   const router = useRouter();
   const documents = useQuery(api.documents.getUserDocuments);
@@ -20,6 +25,7 @@ export const DocumentList = () => {
 
   const handleClick = (id: string) => {
     router.push(`/documents/${id}`);
+  if (isMobile) handleDocSelectNavbarCollapse();
   }
 
   const handleArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: Id<"documents">) => {
