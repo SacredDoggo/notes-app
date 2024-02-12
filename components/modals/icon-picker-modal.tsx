@@ -39,13 +39,11 @@ export const IconPickerModal = () => {
 
   return (
     <Dialog open={iconPicker.isOpen} onOpenChange={iconPicker.onClose}>
-      <DialogContent>
-        <div className="flex items-center justify-center">
+      <DialogContent className="flex items-center justify-center">
           <EmojiPicker
             theme={theme}
             onEmojiClick={(data) => handleUpdateIcon(data.emoji)}
           />
-        </div>
       </DialogContent>
     </Dialog>
   );

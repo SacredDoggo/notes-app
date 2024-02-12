@@ -67,14 +67,12 @@ export const Toolbar = ({ id, icon, initialTitle, coverImageUrl }: ToolbarProps)
   };
 
   const handleRemoveIcon = () => {
-    if (isMobile) return;
     removeIcon({
       id: id,
     });
   };
 
   const handleCoverImageUpload = () => {
-    if (isMobile) return;
     imageDropzone.onOpen();
   };
 
@@ -86,14 +84,16 @@ export const Toolbar = ({ id, icon, initialTitle, coverImageUrl }: ToolbarProps)
             <IconPicker onIconSelect={handleIconChange}>
               <span className="text-6xl hover:opacity-75 transition">{icon}</span>
             </IconPicker>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleRemoveIcon}
-              className="opacity-0 group-hover/icon:opacity-100 text-xs rounded-full text-muted-foreground"
-            >
-              <X className="h-4 w-4" />
-            </Button>
+            {!isMobile && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleRemoveIcon}
+                className="opacity-0 group-hover/icon:opacity-100 text-xs rounded-full text-muted-foreground"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            )}
           </div>
         ) : (
           <IconPicker asChild onIconSelect={handleIconChange}>
@@ -108,7 +108,7 @@ export const Toolbar = ({ id, icon, initialTitle, coverImageUrl }: ToolbarProps)
           </IconPicker>
         )}
         {!coverImageUrl && (
-          <Button 
+          <Button
             variant="outline"
             size="sm"
             onClick={handleCoverImageUpload}

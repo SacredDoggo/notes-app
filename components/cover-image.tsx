@@ -32,12 +32,10 @@ export const CoverImage = ({ url }: CoverImageProps) => {
   const [alterating, setAlterating] = useState(false);
 
   const handleReplaceCover = () => {
-    if (isMobile) return;
     imageDropzone.onReplace(url);
   }
 
   const handleRemoveCoverImage = async () => {
-    if (isMobile) return;
     if (!url) return;
     setAlterating(true);
     await edgestore.publicFiles.delete({
@@ -66,7 +64,7 @@ export const CoverImage = ({ url }: CoverImageProps) => {
           )}
         />
       )}
-      {!!url && !alterating && (
+      {!!url && !isMobile && !alterating && (
         <div className="opacity-0 group-hover:opacity-100 flex items-center absolute right-5 bottom-5 transition gap-x-2">
           <Button
             variant="outline"
